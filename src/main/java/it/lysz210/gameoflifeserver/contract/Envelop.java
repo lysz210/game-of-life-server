@@ -7,5 +7,4 @@ package it.lysz210.gameoflifeserver.contract;
  */
 public interface Envelop<T> {
     T getData ();
-    void setData (T data);
 }

@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * basic Output interface for http calls
- * @param <T>
+ * @param <T> of response data
  */
 public interface Response<T> extends Envelop<T> {
 
