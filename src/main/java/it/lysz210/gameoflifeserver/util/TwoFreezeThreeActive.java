@@ -1,5 +1,6 @@
 package it.lysz210.gameoflifeserver.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +25,24 @@ public class TwoFreezeThreeActive implements GameOfLifeLogic<String> {
      * the index of the current cell,
      * also the center of the matrix
      */
-    public static final int CELL_INDEX = 4;
+    private final int cellIndex;
     /**
      * char rappresentation of active state
      * of a cell
      */
-    public static final char ACTIVE = '1';
+    private final char actrive;
+
+    public TwoFreezeThreeActive (
+        @Value("${gol.cell-index}") int cellIndex,
+        @Value("${gol.active-state}") char activeState
+    ) {
+        this.actrive = activeState;
+        this.cellIndex = cellIndex;
+    }
 
     @Override
     public Character apply(@NonNull String linearMatrix) {
-        return isActive(linearMatrix.charAt(CELL_INDEX), countNeighbors(linearMatrix)) ? '1' : '0';
+        return isActive(linearMatrix.charAt(this.cellIndex), countNeighbors(linearMatrix)) ? '1' : '0';
     }
 
     /**
@@ -43,9 +52,9 @@ public class TwoFreezeThreeActive implements GameOfLifeLogic<String> {
      */
     long countNeighbors(@NonNull String linearMatrix) {
         return IntStream.range(0, 9)
-                .filter(i -> i != CELL_INDEX)
+                .filter(i -> i != this.cellIndex)
                 .map(linearMatrix::charAt)
-                .filter(ch -> ACTIVE == ch)
+                .filter(ch -> this.actrive == ch)
                 .count();
     }
 
@@ -61,6 +70,6 @@ public class TwoFreezeThreeActive implements GameOfLifeLogic<String> {
      * @return the next state of the cell
      */
     boolean isActive(char cell, long neighbors) {
-        return (neighbors == 3) || cell == '1' && neighbors == 2;
+        return (neighbors == 3) || cell == this.actrive && neighbors == 2;
     }
 }

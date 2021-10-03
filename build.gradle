@@ -29,7 +29,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-
+	testImplementation "org.assertj:assertj-core:3.11.1"
 }
 
 test {
