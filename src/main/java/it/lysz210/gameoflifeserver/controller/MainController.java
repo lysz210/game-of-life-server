@@ -4,13 +4,11 @@ import it.lysz210.gameoflifeserver.contract.GameOfLifeRequest;
 import it.lysz210.gameoflifeserver.contract.GameOfLifeResponse;
 import it.lysz210.gameoflifeserver.service.GameOfLiveService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1")
 @RequiredArgsConstructor
