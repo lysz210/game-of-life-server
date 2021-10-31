@@ -1,20 +1,21 @@
 package it.lysz210.gameoflifeserver.util;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
 
+@SpringBootTest
 class TwoFreezeThreeActiveTest {
 
+    @SpyBean
     TwoFreezeThreeActive gameLogic;
-
-    @BeforeEach
-    void setUp () {
-        this.gameLogic = new TwoFreezeThreeActive(4, '1');
-    }
 
     @ParameterizedTest
     @CsvSource({
@@ -69,6 +70,14 @@ class TwoFreezeThreeActiveTest {
                        .isFalse();
            }
         });
+    }
+
+    @Test
+    void shoudCache () {
+        String input = "000000000";
+        assertThat(this.gameLogic.apply(input))
+                .isEqualTo(this.gameLogic.apply(input));
+        verify(this.gameLogic).apply(anyString());
     }
 
 }

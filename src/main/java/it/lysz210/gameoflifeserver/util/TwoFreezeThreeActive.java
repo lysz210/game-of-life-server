@@ -1,6 +1,7 @@
 package it.lysz210.gameoflifeserver.util;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class TwoFreezeThreeActive implements GameOfLifeLogic<String> {
     }
 
     @Override
+    @Cacheable("TwoFreeThreeActive")
     public Character apply(@NonNull String linearMatrix) {
         return isActive(linearMatrix.charAt(this.cellIndex), countNeighbors(linearMatrix)) ? '1' : '0';
     }
